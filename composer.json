@@ -1,0 +1,30 @@
+{
+    "name": "djunehor/laravel-revert-query",
+    "description": "Log all model events and revert specific model event",
+    "keywords": ["model","event","database","specific", "revert", "laravel"],
+    "authors": [
+        {
+            "name": "Zacchaeus Bolaji",
+            "email": "djunehor@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^7.0",
+        "illuminate/config": "~5.5.0|~5.6.0|~5.7.0|~5.8.0",
+        "illuminate/database": "~5.5.0|~5.6.0|~5.7.0|~5.8.0",
+        "illuminate/support": "~5.5.0|~5.6.0|~5.7.0|~5.8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Djunehor\\EventRevert\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Djunehor\\EventRevert\\EventRevertServiceProvider"
+            ]
+        }
+    }
+}
