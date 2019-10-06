@@ -14,3 +14,5 @@
  */
 
 Route::get('/model-events', 'Djunehor\EventRevert\App\Http\Controllers\ModelLogController@index');
+Route::get('/model-events/{log}', 'Djunehor\EventRevert\App\Http\Controllers\ModelLogController@show');
+Route::patch('/model-event-revert/{id}', 'Djunehor\EventRevert\App\Http\Controllers\ModelLogController@revert');

@@ -15,7 +15,8 @@ class ModelLog extends Model
 		'action',
 		'description',
 		'old',
-		'new'
+		'new',
+		'route'
 	];
     use SoftDeletes;
 
@@ -25,5 +26,9 @@ class ModelLog extends Model
 
 	public function causer() {
 		return $this->morphTo('causer');
+	}
+
+	public function reverter() {
+		return $this->morphTo('reverter');
 	}
 }

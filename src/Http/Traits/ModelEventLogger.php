@@ -6,35 +6,60 @@
  * Time: 1:27 AM
  */
 namespace Djunehor\EventRevert\App\Http\Traits;
-use Djunehor\EventRevert\ModelLog as Activity;
+use Djunehor\EventRevert\Models\ModelLog as Activity;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 /**
  *  Automatically Log Add, Update, Delete events of Model.
  */
 trait ModelEventLogger {
 
+
 	/**
 	 * Automatically boot with Model, and register Events handler.
 	 */
-	protected static function bootModelEventLogger()
+
+//	protected static function boot() {
+//		parent::boot();
+//
+//		static::deleting(function ($model) {
+//			// deleting listener logic
+//		});
+//
+//		static::saving(function ($model) {
+//			// saving listener logic
+//		});
+//
+//		static::updating(function ($model) {
+//			echo 'Hello';
+//			Log::info($model);
+//		});
+//	}
+
+	protected static function boot()
 	{
+		parent::boot();
+
 		foreach (static::getRecordActivityEvents() as $eventName) {
 			static::$eventName(function (Model $model) use ($eventName) {
 				try {
 					$reflect = new \ReflectionClass($model);
 					return Activity::create([
-						'causer_id'     => auth()->id(),
-						'causer_type'     => auth()->user() ? get_class(auth()->user()) : null,
+						'causer_id'     => $request->user()->id ?? null,
+						'causer_type'     => $request->user() ? get_class($request->user()) : null,
 						'subject_id'   => $model->id,
 						'subject_type' => get_class($model),
 						'action'      => static::getActionName($eventName),
 						'description' => ucfirst($eventName) . " a " . $reflect->getShortName(),
 						'old'     => json_encode($model->getOriginal()),
-						'new'     => json_encode($model->getDirty())
+						'new'     => json_encode($model->getDirty()),
+						'route'     => (php_sapi_name() === 'cli' OR defined('STDIN')) ? null : request()->url(),
 					]);
 				} catch (\Exception $e) {
-					return true;
+					Log::info($e->getMessage());
+
 				}
 			});
 		}
@@ -56,6 +81,7 @@ trait ModelEventLogger {
 			'created',
 			'updated',
 			'deleted',
+//			'inserted',
 		];
 	}
 

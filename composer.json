@@ -18,7 +18,10 @@
     "autoload": {
         "psr-4": {
             "Djunehor\\EventRevert\\": "src"
-        }
+        },
+        "files": [
+            "src/Helpers/helpers.php"
+        ]
     },
     "extra": {
         "laravel": {
