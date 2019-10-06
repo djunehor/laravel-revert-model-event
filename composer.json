@@ -3,7 +3,7 @@
     "description": "Log all model events and revert specific model event",
     "keywords": ["model","event","database","specific", "revert", "laravel"],
 	"type": "library",
-    "license": "MIT"
+    "license": "MIT",
     "authors": [
         {
             "name": "Zacchaeus Bolaji",
