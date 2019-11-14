@@ -74,4 +74,3 @@ You can revert migrations inside your project using:
  For any questions, you can reach out to the author of this package, Zacchaeus Bolaji.
 
  Thank you for using it.
-"# laravel-revert-model-event" 
