@@ -1,4 +1,8 @@
 # Laravel Model Event Log & Revert
+[![CircleCI](https://circleci.com/gh/djunehor/laravel-revert-model-event.svg?style=svg)](https://circleci.com/gh/djunehor/laravel-revert-model-event)
+[![Latest Stable Version](https://poser.pugx.org/djunehor/laravel-revert-query/v/stable)](https://packagist.org/packages/djunehor/laravel-revert-query)
+[![Total Downloads](https://poser.pugx.org/djunehor/laravel-revert-query/downloads)](https://packagist.org/packages/djunehor/laravel-revert-query)
+[![License](https://poser.pugx.org/djunehor/laravel-revert-query/license)](https://packagist.org/packages/djunehor/laravel-revert-query)
 
 Laravel Model Event Logger and Revert logs every action on a model (create, delete, update), provides an interface to see the list of all activities as well as revert specific model event.
 
