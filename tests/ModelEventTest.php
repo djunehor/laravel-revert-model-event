@@ -38,16 +38,4 @@ class ModelEventTest extends TestCase
         $this->assertNotNull($event);
         $this->assertEquals('update', $event->action);
     }
-
-    /** @test */
-    public function it_can_run_revert_command()
-    {
-        $model = $this->create();
-        $oldName = 'Samuel';
-        $model->update(['name' => 'John']);
-        $event = ModelLog::query()->orderByDesc('id')->first();
-        Artisan::call('model:revert --id='.$event->id);
-        $newModel = $this->model::find($model->id);
-        $this->assertEquals($oldName, $newModel->name);
-    }
 }

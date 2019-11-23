@@ -22,7 +22,7 @@ return [
             'causer'   => 'Causer',
             'revert'   => 'Revert',
             'reverted_by'   => 'Reverted By',
-            'created_at'   => 'Occured At',
+            'created_at'   => 'Occurred At',
             'reverted_at'   => 'Reverted At',
         ],
 

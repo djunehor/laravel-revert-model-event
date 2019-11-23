@@ -11,7 +11,7 @@ class RevertModelEvent extends Command
      *
      * @var string
      */
-    protected $signature = 'model:revert {--id=}';
+    protected $signature = 'model:revert {--i|id=}';
     /**
      * The console command description.
      *
