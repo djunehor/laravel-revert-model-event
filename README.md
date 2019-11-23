@@ -3,6 +3,7 @@
 [![Latest Stable Version](https://poser.pugx.org/djunehor/laravel-revert-query/v/stable)](https://packagist.org/packages/djunehor/laravel-revert-query)
 [![Total Downloads](https://poser.pugx.org/djunehor/laravel-revert-query/downloads)](https://packagist.org/packages/djunehor/laravel-revert-query)
 [![License](https://poser.pugx.org/djunehor/laravel-revert-query/license)](https://packagist.org/packages/djunehor/laravel-revert-query)
+[![StyleCI](https://github.styleci.io/repos/213029621/shield?branch=master)](https://github.styleci.io/repos/213029621)
 
 Laravel Model Event Logger and Revert logs every action on a model (create, delete, update), provides an interface to see the list of all activities as well as revert specific model event.
 
