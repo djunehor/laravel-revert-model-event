@@ -6,7 +6,6 @@
  * Time: 10:46 PM
  */
 return [
-
-	'user_type' => env('MODEL_EVENT_ADMIN_MODEL_TYPE', "App\\User"), //specify model name
+	'guard' => env('MODEL_EVENT_ADMIN_GUARD', null), //specify guard name
 	'user_id' => env('MODEL_EVENT_ADMIN_MODEL_ID', 1), //specify model id as int or array of IDs
 ];

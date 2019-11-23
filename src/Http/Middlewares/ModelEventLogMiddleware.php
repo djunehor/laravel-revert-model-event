@@ -8,13 +8,10 @@ class ModelEventLogMiddleware
 {
     public function handle($request, Closure $next)
     {
-        $userType = config('model-event-logger.user_type');
         $userIds = explode(",", config('model-event-logger.user_id'));
+        $guard = config('model-event-logger.guard');
 
-        if(!auth()->check() || !(
-                get_class(auth()->user()) == $userType
-                && in_array(auth()->id(), $userIds)
-            )) {
+        if(!auth($guard)->check() || !in_array(auth($guard)->id(), $userIds)) {
             abort(403, "You're not authorised to perform this action");
         }
 
