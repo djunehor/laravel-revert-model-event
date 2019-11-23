@@ -114,7 +114,7 @@ class ModelEventLogRouteTest extends TestCase
         $modelLog = ModelLog::create([
             'description' => 'it is well',
             'subject_id' => 99898,
-            'subject_type' => ModelEventLogTestUser::class,
+            'subject_type' => '\App\\MosterClass',
             'action' => 'update',
             'new' => json_encode([]),
             'old' => json_encode([]),
