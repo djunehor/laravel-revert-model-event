@@ -2,6 +2,7 @@
 namespace Djunehor\EventRevert\Test;
 
 use Djunehor\EventRevert\ModelLog;
+use Illuminate\Support\Facades\Artisan;
 
 class ModelEventTest extends TestCase
 {
@@ -17,7 +18,6 @@ class ModelEventTest extends TestCase
         $event = ModelLog::query()->first();
         $this->assertNotNull($event);
         $this->assertEquals('create', $event->action);
-        ModelLog::query()->truncate();
     }
 
     /** @test */
@@ -27,8 +27,6 @@ class ModelEventTest extends TestCase
         $event = ModelLog::query()->orderByDesc('id')->first();
         $this->assertNotNull($event);
         $this->assertEquals('delete', $event->action);
-        $this->model::truncate();
-        ModelLog::query()->truncate();
     }
 
     /** @test */
@@ -38,8 +36,18 @@ class ModelEventTest extends TestCase
         $event = ModelLog::query()->orderByDesc('id')->first();
         $this->assertNotNull($event);
         $this->assertEquals('update', $event->action);
-        $this->model::truncate();
-        ModelLog::query()->truncate();
+    }
+
+    /** @test */
+    public function it_can_run_revert_command()
+    {
+        $model = $this->create();
+        $oldName = 'Samuel';
+        $model->update(['name' => 'John']);
+        $event = ModelLog::query()->orderByDesc('id')->first();
+        Artisan::call('model:revert --id='.$event->id);
+        $newModel = $this->model::find($model->id);
+        $this->assertEquals($oldName, $newModel->name);
     }
 
 }

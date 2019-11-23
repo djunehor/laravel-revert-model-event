@@ -70,6 +70,10 @@ use Djunehor\EventRevert\ModelEventLogger;`
 |`/model-event-revert/{id}`|revert specific model event|
 
 
+### Reverting via Console
+If you know the specific ID of the event you which you revert, you can run:
+`php artisan model:revert --id=EVENT_ID`
+
 ## Contributing
 - Fork this project
 - Clone to your repo

@@ -2,7 +2,6 @@
 
 namespace Djunehor\EventRevert;
 
-use Djunehor\EventRevert\Models\ModelLog;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -13,7 +12,7 @@ class RevertModelEvent extends Command {
 	 *
 	 * @var string
 	 */
-	protected $signature = 'model:revert {--i|id=}';
+	protected $signature = 'model:revert {--id=}';
 	/**
 	 * The console command description.
 	 *
@@ -49,7 +48,7 @@ class RevertModelEvent extends Command {
 			$this->error($revert['message']);
 			return;
 		}
-		$this->info("Model Event #$log->id has been reverted succesffully");
+		$this->info("Model Event #$log->id has been reverted successfully");
 		return;
 	}
 }
