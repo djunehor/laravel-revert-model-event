@@ -35,6 +35,25 @@ class ModelEventLogRouteTest extends TestCase
     }
 
     /** @test */
+    public function it_can_access_model_event_log_list_with_filter()
+    {
+        $url = 'model-events';
+        $filters = [
+            'action' => 'create',
+            'created_before' => now()->addHour(),
+            'created_after' => now()->subHour(),
+            'reverted_before' => now()->subHour(),
+            'reverted_after' => now()->addHour(),
+        ];
+
+        foreach ($filters as $key => $value) {
+            $response = $this->get($url.'?'.$key.'='.$value);
+            $response->assertSuccessful();
+            $this->assertStringContainsString(trans('ModelEventLogger::model-event-logger.dashboard.title'), $response->getContent());
+        }
+    }
+
+    /** @test */
     public function it_can_access_model_event_log_list_by_model_log_id()
     {
         $faker = Factory::create();
@@ -63,5 +82,47 @@ class ModelEventLogRouteTest extends TestCase
         $this->assertStringContainsString(trans('ModelEventLogger::model-event-logger.messages.logRevertedSuccessfully'), $response->getContent());
         $newModel = $this->model::find($model->id);
         $this->assertEquals($oldName, $newModel->name);
+    }
+
+    /** @test */
+    public function it_fail_on_double_revert_model_event()
+    {
+        $model = $this->create();
+        $oldName = $model->name;
+        $model->update(['name' => 'isabel']);
+
+        $lastLog = ModelLog::query()->orderByDesc('id')->first();
+        $response = $this->patch('model-event-revert/'.$lastLog->id);
+        $response->assertSuccessful();
+        $this->assertStringContainsString(trans('ModelEventLogger::model-event-logger.messages.logRevertedSuccessfully'), $response->getContent());
+        $newModel = $this->model::find($model->id);
+        $this->assertEquals($oldName, $newModel->name);
+        $response = $this->patch('model-event-revert/'.$lastLog->id);
+        $response->assertStatus(400);
+    }
+
+    /** @test */
+    public function it_fail_on_wrong_event_id()
+    {
+        $response = $this->patch('model-event-revert/'.rand(2, 10));
+        $response->assertStatus(404);
+    }
+
+    /** @test */
+    public function it_fail_on_wrong_event_revert()
+    {
+        $modelLog = ModelLog::create([
+            'description' => 'it is well',
+            'subject_id' => 99898,
+            'subject_type' => ModelEventLogTestUser::class,
+            'action' => 'update',
+            'new' => json_encode([]),
+            'old' => json_encode([]),
+        ]);
+
+        $response = $this->patch('model-event-revert/'.$modelLog->id);
+
+        file_put_contents('error.html', $response->getContent());
+        $response->assertStatus(400);
     }
 }

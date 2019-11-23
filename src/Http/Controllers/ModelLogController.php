@@ -62,13 +62,13 @@ class ModelLogController extends Controller
         $log = ModelLog::findOrFail($id);
 
         if ($log->reverted_at) {
-            return response(trans('ModelEventLogger::model-event-logger.messages.logRevertedAlready'), 400);
+            return response()->json(trans('ModelEventLogger::model-event-logger.messages.logRevertedAlready'), 400);
         }
 
         $revert = model_event_revert($log);
 
         if (! $revert['status']) {
-            return response($revert['message'], 400);
+            return response()->json($revert['message'], 400);
         }
         $log->revert_note = $request->revert_note;
         $log->reverted_at = now();
@@ -76,6 +76,6 @@ class ModelLogController extends Controller
         $log->reverter_id = auth()->id();
         $log->save();
 
-        return response(trans('ModelEventLogger::model-event-logger.messages.logRevertedSuccessfully'));
+        return response()->json(trans('ModelEventLogger::model-event-logger.messages.logRevertedSuccessfully'));
     }
 }
