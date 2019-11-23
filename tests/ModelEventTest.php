@@ -1,4 +1,5 @@
 <?php
+
 namespace Djunehor\EventRevert\Test;
 
 use Djunehor\EventRevert\ModelLog;
@@ -6,11 +7,11 @@ use Illuminate\Support\Facades\Artisan;
 
 class ModelEventTest extends TestCase
 {
-
     /* -----------------------------------------------------------------
      |  Tests
      | -----------------------------------------------------------------
      */
+
     /** @test */
     public function it_detects_model_create_event()
     {
@@ -49,5 +50,4 @@ class ModelEventTest extends TestCase
         $newModel = $this->model::find($model->id);
         $this->assertEquals($oldName, $newModel->name);
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Djunehor\EventRevert\Test\Models;
 
 use Djunehor\EventRevert\ModelEventLogger;
@@ -13,6 +14,6 @@ class TestModel extends Model
     protected $fillable = [
         'name',
         'city',
-        'country'
+        'country',
     ];
 }

@@ -4,8 +4,8 @@ namespace Djunehor\EventRevert\Test;
 
 use Djunehor\EventRevert\EventRevertServiceProvider;
 use Djunehor\EventRevert\ModelLog;
-use Djunehor\EventRevert\Test\Models\TestModel;
 use Djunehor\EventRevert\Test\Models\ModelEventLogTestUser;
+use Djunehor\EventRevert\Test\Models\TestModel;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Encryption\Encrypter;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
@@ -53,14 +53,14 @@ abstract class TestCase extends BaseTestCase
             'prefix'   => '',
         ]);
 
-        $app['config']->set('app.key', 'base64:' . base64_encode(
+        $app['config']->set('app.key', 'base64:'.base64_encode(
                 Encrypter::generateKey($app['config']['app.cipher'])
             ));
 
         $app['config']->set('app.env', 'local');
         $app['config']->set('app.debug', true);
         $app['config']->set('auth.providers.users.model', ModelEventLogTestUser::class);
-        $config = include_once  __DIR__.'/../src/config/model-event-logger.php';
+        $config = include_once __DIR__.'/../src/config/model-event-logger.php';
         $app['config']->set('model-event-logger.user_type', ModelEventLogTestUser::class);
         $app['config']->set('model-event-logger.user_id', 1);
     }
@@ -75,7 +75,7 @@ abstract class TestCase extends BaseTestCase
         include_once __DIR__.'/../src/database/migrations/2019_10_04_235130_create_model_logs_table.php';
         (new \CreateModelLogsTable())->up();
 
-        Schema::create(  'test_model_table', function (Blueprint $table) {
+        Schema::create('test_model_table', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('city');
@@ -95,7 +95,7 @@ abstract class TestCase extends BaseTestCase
         ModelEventLogTestUser::query()->create([
            'name' => 'John',
            'email' => 'example@gmail.com',
-           'password' => bcrypt('password')
+           'password' => bcrypt('password'),
         ]);
     }
 
@@ -109,8 +109,8 @@ abstract class TestCase extends BaseTestCase
         return $this->model::create([
             'name' => 'Samuel',
             'city' => 'Lokoja',
-            'country' => 'Nigeria'
-        ]) ;
+            'country' => 'Nigeria',
+        ]);
     }
 
     public function beforeApplicationDestroyed(callable $callback)

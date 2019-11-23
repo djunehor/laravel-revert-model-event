@@ -1,11 +1,11 @@
 <?php
+
 namespace Djunehor\EventRevert\Test;
 
 use Djunehor\EventRevert\ModelLog;
 
 class ModelEventLogRevertClass extends TestCase
 {
-
     /* -----------------------------------------------------------------
      |  Tests
      | -----------------------------------------------------------------
@@ -32,7 +32,6 @@ class ModelEventLogRevertClass extends TestCase
         $oldName = $model->name;
         $model->update(['name' => 'isabel']);
 
-
         $lastLog = ModelLog::query()->orderByDesc('id')->first();
         model_event_revert($lastLog);
         $newModel = $this->model::find($model->id);
@@ -45,7 +44,6 @@ class ModelEventLogRevertClass extends TestCase
         $model = $this->create();
         $oldName = $model->name;
         $model->delete();
-
 
         $lastLog = ModelLog::query()->orderByDesc('id')->first();
         model_event_revert($lastLog);

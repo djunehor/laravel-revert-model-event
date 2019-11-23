@@ -1,8 +1,9 @@
 <?php
+
 namespace Djunehor\EventRevert\Test\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
 class ModelEventLogTestUser extends Model implements Authenticatable
 {
@@ -18,6 +19,7 @@ class ModelEventLogTestUser extends Model implements Authenticatable
     public function getAuthIdentifier()
     {
         $name = $this->getAuthIdentifierName();
+
         return $this->attributes[$name];
     }
 
@@ -39,5 +41,4 @@ class ModelEventLogTestUser extends Model implements Authenticatable
     {
         return 'tokenName';
     }
-
 }
