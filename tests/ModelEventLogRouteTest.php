@@ -104,7 +104,7 @@ class ModelEventLogRouteTest extends TestCase
     /** @test */
     public function it_fail_on_wrong_event_id()
     {
-        $response = $this->patch('model-event-revert/'.rand(2, 10));
+        $response = $this->patch('model-event-revert/'.rand(888888888, 999999999));
         $response->assertStatus(404);
     }
 
