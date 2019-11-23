@@ -96,7 +96,7 @@
         </div>
     </div>
 
-
+@endsection
     @section('scripts')
     <script>
         $('#exampleModal').on('show.bs.modal', function (event) {
@@ -170,4 +170,3 @@
 
     </script>
         @endsection
-@endsection

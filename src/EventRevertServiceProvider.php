@@ -2,13 +2,14 @@
 
 namespace Djunehor\EventRevert;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\ServiceProvider as MyServiceProvider;
 
-class EventRevertServiceProvider extends ServiceProvider {
+class EventRevertServiceProvider extends MyServiceProvider {
 	/**
 	 * Bootstrap the application services.
 	 *
 	 * @return void
+     *
 	 */
 	public function boot() {
 		$this->loadRoutesFrom(__DIR__.'/routes/web.php');
@@ -25,9 +26,9 @@ class EventRevertServiceProvider extends ServiceProvider {
 	 * @return void
 	 */
 	public function register() {
-		$this->app->make('Djunehor\EventRevert\App\Http\Controllers\ModelLogController');
+       $this->app['router']->aliasMiddleware('model-event-logger-middleware', ModelEventLogMiddleware::class);
 		$this->commands( [
-			\Djunehor\EventRevert\App\Console\Commands\RevertModelEvent::class,
+			RevertModelEvent::class,
 		] );
 	}
 
@@ -43,6 +44,6 @@ class EventRevertServiceProvider extends ServiceProvider {
 		], $publishTag);
 		$this->publishes([
 			__DIR__.'/config/model-event-logger.php' => config_path('model-event-logger.php'),
-		], 'config');
+		], $publishTag);
 	}
 }

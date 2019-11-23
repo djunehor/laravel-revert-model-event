@@ -1,30 +1,14 @@
 <?php
-
-namespace Djunehor\EventRevert\App\Http\Controllers;
+namespace Djunehor\EventRevert;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Djunehor\EventRevert\Models\ModelLog;
-use \App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Routing\Controller;
 
 class ModelLogController extends Controller
 {
 	private $actions = ['update', 'delete', 'create'];
-
-	public function __construct() {
-		$this->middleware('web');
-		$this->middleware('auth');
-
-		$guard = config('model-event-logger.guard');
-
-		if(get_class(auth($guard)->user()) !== config('model-event-logger.user_type')) abort(401);
-		$allowedUsers = config('model-event-logger.user_id');
-		$adminIds = !is_array($allowed) ? explode(",", $allowedUsers) : $allowedUsers;
-
-		if(!in_array(auth($guard)->id(), $adminIds)) abort(401);
-	}
 
 	public function index(Request $request)
 	{
@@ -32,6 +16,7 @@ class ModelLogController extends Controller
 		$modelLogs = $this->applyFilters($modelLogs, $request);
 		$modelLogs = $modelLogs->orderByDesc('updated_at')->paginate($request->per_page ?? 15);
 		$modelActions = $this->actions;
+
 		return view('ModelEventLogger::log-table', compact('modelLogs', 'modelActions'));
 	}
 
@@ -81,8 +66,8 @@ class ModelLogController extends Controller
 		}
 		$log->revert_note = $request->revert_note;
 		$log->reverted_at = now();
-		$log->reverter_type = $request->user() ? get_class($request->user()) : null;
-		$log->reverter_id = $request->user()->id ?? null;
+		$log->reverter_type = auth()->user() ? get_class($request->user()) : null;
+		$log->reverter_id = auth()->id();
 		$log->save();
 
 		return response(trans('ModelEventLogger::model-event-logger.messages.logRevertedSuccessfully'));

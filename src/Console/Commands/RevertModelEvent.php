@@ -1,6 +1,6 @@
 <?php
 
-namespace Djunehor\EventRevert\App\Console\Commands;
+namespace Djunehor\EventRevert;
 
 use Djunehor\EventRevert\Models\ModelLog;
 use Illuminate\Console\Command;

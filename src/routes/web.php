@@ -5,14 +5,9 @@
  * routes are loaded by the RouteServiceProvider within a group which
  * contains the "web" middleware group. Now create something great!
  *
- * @category Worketic
- *
- * @package Worketic
- * @author  Amentotech <theamentotech@gmail.com>
- * @license http://www.amentotech.com amentotech
- * @link    http://www.amentotech.com
  */
-
-Route::get('/model-events', 'Djunehor\EventRevert\App\Http\Controllers\ModelLogController@index');
-Route::get('/model-events/{log}', 'Djunehor\EventRevert\App\Http\Controllers\ModelLogController@show');
-Route::patch('/model-event-revert/{id}', 'Djunehor\EventRevert\App\Http\Controllers\ModelLogController@revert');
+Route::group(['namespace' => 'Djunehor\EventRevert', 'middleware' => ['web', 'model-event-logger-middleware']], function () {
+    Route::get('/model-events', 'ModelLogController@index');
+    Route::get('/model-events/{log}', 'ModelLogController@show');
+    Route::patch('/model-event-revert/{id}', 'ModelLogController@revert');
+});

@@ -16,13 +16,15 @@ class CreateModelLogsTable extends Migration
         Schema::create('model_logs', function (Blueprint $table) {
             $table->increments('id');
             $table->morphs('subject');
-            $table->morphs('causer')->nullable();
+            $table->string('causer_type')->nullable();
+            $table->integer('causer_id')->nullable();
             $table->string('description');
             $table->string('action');
-            $table->json('old');
+            $table->json('old')->nullable();
             $table->json('new');
-            $table->string('route');
-            $table->morphs('reverter');
+            $table->string('route')->nullable();
+            $table->string('reverter_type')->nullable();
+            $table->string('reverter_id')->nullable();
             $table->timestamp('reverted_at')->nullable();
             $table->string('revert_note')->nullable();
             $table->softDeletes();

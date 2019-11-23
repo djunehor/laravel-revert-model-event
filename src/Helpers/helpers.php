@@ -8,7 +8,7 @@
 
 if (!function_exists('model_event_revert')) {
 
-	function model_event_revert( $log ): bool {
+	function model_event_revert( $log ): array {
 		try {
 			switch ( $log->action ) {
 				case 'update':
@@ -19,6 +19,7 @@ if (!function_exists('model_event_revert')) {
 						$response['status']  = false;
 					}
 					$model->update( $data );
+                    $response['status']  = true;
 					break;
 				case 'create':
 					$log->subject()->delete();
@@ -34,7 +35,7 @@ if (!function_exists('model_event_revert')) {
 			}
 		} catch (\Exception $e) {
 			$response['status'] = false;
-			$response['message'] = 'An error occured. Please check the logs.';
+			$response['message'] = 'An error occurred. Please check the logs.';
 
 			\Illuminate\Support\Facades\Log::info($e->getMessage());
 		}
