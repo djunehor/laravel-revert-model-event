@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Artisan;
 
 class ModelEventCommandHelperTest extends TestCase
 {
-
     /** @test */
     public function it_can_run_revert_command_with_id()
     {
@@ -15,7 +14,7 @@ class ModelEventCommandHelperTest extends TestCase
         $oldName = 'Samuel';
         $model->update(['name' => 'John']);
         $event = ModelLog::query()->orderByDesc('id')->first();
-        Artisan::call('model:revert --id=' . $event->id);
+        Artisan::call('model:revert --id='.$event->id);
         $newModel = $this->model::find($model->id);
         $this->assertEquals($oldName, $newModel->name);
     }
@@ -27,7 +26,7 @@ class ModelEventCommandHelperTest extends TestCase
         $oldName = 'Samuel';
         $model->update(['name' => 'John']);
         $event = ModelLog::query()->orderByDesc('id')->first();
-        Artisan::call('model:revert -i' . $event->id);
+        Artisan::call('model:revert -i'.$event->id);
         $newModel = $this->model::find($model->id);
         $this->assertEquals($oldName, $newModel->name);
     }
@@ -39,11 +38,9 @@ class ModelEventCommandHelperTest extends TestCase
         $model->update(['name' => 'John']);
         $event = ModelLog::query()->orderByDesc('id')->first();
         try {
-            Artisan::call('model:revert -sam' . $event->id);
+            Artisan::call('model:revert -sam'.$event->id);
         } catch (\Exception $e) {
             $this->assertEquals('The "-s" option does not exist.', $e->getMessage());
         }
-
     }
-
 }

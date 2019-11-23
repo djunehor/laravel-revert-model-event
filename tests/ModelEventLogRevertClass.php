@@ -60,7 +60,7 @@ class ModelEventLogRevertClass extends TestCase
         $response = model_event_revert($lastLog);
         $expectedResponse = [
             'status' => false,
-            'message' => 'Unknown model event encountered!'
+            'message' => 'Unknown model event encountered!',
         ];
         $this->assertSame($response, $expectedResponse);
     }
@@ -73,7 +73,7 @@ class ModelEventLogRevertClass extends TestCase
         $response = model_event_revert($lastLog);
         $expectedResponse = [
             'status' => false,
-            'message' => 'An error occurred. Please check the logs.'
+            'message' => 'An error occurred. Please check the logs.',
         ];
         $this->assertSame($response, $expectedResponse);
     }
