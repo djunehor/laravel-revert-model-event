@@ -37,8 +37,7 @@ if (! function_exists('model_event_revert')) {
             $response['message'] = 'An error occurred. Please check the logs.';
 
             \Illuminate\Support\Facades\Log::info($e->getMessage());
-        }
-        catch (\Throwable $e) {
+        } catch (\Throwable $e) {
             $response['status'] = false;
             $response['message'] = 'An error occurred. Please check the logs.';
 

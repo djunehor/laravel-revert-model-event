@@ -3,7 +3,6 @@
 namespace Djunehor\EventRevert\Test;
 
 use Djunehor\EventRevert\ModelLog;
-use Illuminate\Support\Facades\Artisan;
 
 class ModelEventTest extends TestCase
 {
