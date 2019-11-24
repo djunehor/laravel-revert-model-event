@@ -61,7 +61,7 @@ abstract class TestCase extends BaseTestCase
         $app['config']->set('app.debug', true);
         $app['config']->set('auth.providers.users.model', ModelEventLogTestUser::class);
         $config = include_once __DIR__.'/../src/config/model-event-logger.php';
-        $app['config']->set('model-event-logger.user_type', ModelEventLogTestUser::class);
+        $app['config']->set('model-event-logger.guard', null);
         $app['config']->set('model-event-logger.user_id', 1);
     }
 

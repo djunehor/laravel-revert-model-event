@@ -35,6 +35,14 @@ class ModelEventLogRouteTest extends TestCase
     }
 
     /** @test */
+    public function it_fail_on_unauthorized_route_access()
+    {
+        auth()->logout();
+        $response = $this->get('model-events');
+        $response->assertStatus(403);
+    }
+
+    /** @test */
     public function it_can_access_model_event_log_list_with_filter()
     {
         $url = 'model-events';
