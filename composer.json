@@ -1,7 +1,7 @@
 {
     "name": "djunehor/laravel-revert-query",
     "description": "Log all model events and revert specific model event",
-    "keywords": ["model","event","database","specific", "revert", "laravel"],
+    "keywords": ["model","event","database","specific", "revert", "laravel", "laravel-package"],
 	"type": "library",
     "license": "MIT",
     "authors": [
